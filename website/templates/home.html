@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Blood Pressure Category Calculator{% endblock %}
+{% block content%}
+<form id="bpccForm" method="POST">
+    <h3 align="left">Blood Pressure Category Calculator</h3>
+    <div class="form-group">
+        <label for="systolic">Enter Systolic Pressure (Range from 70 to 190)</label>
+        <input
+            type="number"
+            min="70"
+            max="190"
+            class="form-control"
+            id="systolic"
+            name="systolic"
+            placeholder="Top Number"
+            required
+        />
+    </div>
+    <div class="form-group">
+        <label for="diastolic">Enter Diastolic Pressure (Range from 40 to 100)</label>
+        <input
+            type="number"
+            min="40"
+            max="100"
+            class="form-control"
+            id="diastolic"
+            name="diastolic"
+            placeholder="Bottom Number"
+            required
+        />
+    </div>
+    <br />
+        {% with messages = get_flashed_messages(with_categories=true)  %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                    <div class="alert alert-info alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% elif category == 'low' %}
+                    <div class="alert alert-primary alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% elif category == 'ideal' %}
+                    <div class="alert alert-success alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% elif category == 'pre-high' %}
+                    <div class="alert alert-warning alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% elif category == 'high' %}
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {%endif%}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
