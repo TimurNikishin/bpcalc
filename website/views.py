@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, session
+from flask import Blueprint, render_template, request, flash
 
 views = Blueprint('views', __name__)
 
@@ -15,7 +15,6 @@ def home():
         
         from .modules import bpcalc
         pressure = bpcalc(systolic, diastolic)
-        print(pressure)
         
         if pressure == 'low':
             flash('Low blood pressure', category='low')
