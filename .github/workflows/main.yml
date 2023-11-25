@@ -3,7 +3,7 @@ env:
   EB_PACKAGE_S3_BUCKET_NAME  :  "tn-tud-csd-ca1-bpcalc-packages"
   EB_APPLIACTION_NAME        :  "bpcalc-app-qa"
   EB_ENVIRONMENT_NAME        :  "bpcalc-app-qa-env"
-  DEPLOY_PACKAGE_NAME        :  "bpcala_app_${{ github.sha }}.zip"
+  DEPLOY_PACKAGE_NAME        :  "bpcalc_app_${{ github.sha }}.zip"
   AWS_REGION_NAME            :   "eu-west-1"
   
 on:
