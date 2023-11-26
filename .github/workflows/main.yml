@@ -31,7 +31,7 @@ jobs:
       run: pytest
 
     - name: Create ZIP deployment package
-      run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+      run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git* "tests/*"
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -62,5 +62,6 @@ jobs:
           --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME}}" \
           --version-label "Ver-${{ github.sha }}" \
           --description "CommitSHA-${{ github.sha }}"
+
       - name: QA - Deploy new Elastic Beanstalk Application Version 
         run: aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME_QA }} --version-label "Ver-${{ github.sha }}"
