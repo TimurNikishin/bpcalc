@@ -5,7 +5,7 @@ def test_page_title(client):
 def test_submission_low(client):
     response = client.post("/", data={"systolic": "70", "diastolic": "40"})
 
-    assert b"Low blood pressure" in response.data
+    assert b"Lowwww blood pressure" in response.data
 
 def test_submission_ideal(client):
     response = client.post("/", data={"systolic": "110", "diastolic": "70"})
