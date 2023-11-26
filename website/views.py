@@ -24,6 +24,8 @@ def home():
             flash('Pre-High blood pressure', category='pre-high')
         elif pressure == 'high':
             flash('High blood pressure', category='high')
+        elif pressure == 'invalid':
+            flash('Submitted invalid values', category='high')
             
     return render_template("home.html")
 
