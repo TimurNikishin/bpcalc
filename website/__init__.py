@@ -1,8 +1,11 @@
 from flask import Flask
+import os
+
 
 def create_app():
     application = Flask(__name__)
-    application.config['SECRET_KEY'] = 'UhnenKEO!Wksn!Wl#kc'
+    #Generate random session key
+    application.config['SECRET_KEY'] = os.urandom(24)
     
     from .views import views
     
