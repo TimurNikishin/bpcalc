@@ -5,6 +5,7 @@ import os
 def create_app():
     application = Flask(__name__)
     application.secret_key = os.urandom(24)
+    application.config['WTF_CSRF_ENABLED'] = True
     
     from .views import views
     
