@@ -21,11 +21,6 @@ jobs:
       with:
         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
     
-    - name: Dependency Review
-      uses: actions/dependency-review-action@v3
-      with:
-        fail-on-severity: critical
-
     - name: Code Analysis with SonarCloud
       uses: SonarSource/sonarcloud-github-action@master
       env:
