@@ -46,8 +46,14 @@ jobs:
     #   run: pytest
 
     - name: Build deployment package
-      #run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git* "UnitTest/*" ".pytest*"
-      run : zip -r deploy.zip ./ -x *.git* "UnitTest/*" ".pytest*"
+      run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git* "UnitTest/*" ".pytest*"
+    
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Deployment_Package
+        path: ${{ env.DEPLOY_PACKAGE_NAME }}
+        retention-days: 5  
 
     # - name: Configure AWS Credentials
     #   uses: aws-actions/configure-aws-credentials@v1
@@ -64,6 +70,11 @@ jobs:
     needs  : [CI_part]
 
     steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: Deployment_Package
+
       - name: QA Deployment in AWS
         uses: einaregilsson/beanstalk-deploy@v20
         with:
