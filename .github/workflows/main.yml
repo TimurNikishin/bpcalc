@@ -84,7 +84,7 @@ jobs:
           application_name:   ${{ env.EB_APPLIACTION_NAME_QA }}
           environment_name:   ${{ env.EB_ENVIRONMENT_NAME_QA }}
           version_label:      "Ver-${{ github.sha }}"
-          deployment_package: deploy.zip    
+          deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }}  
 
     # steps:
     #   - name: Configure AWS Credentials
