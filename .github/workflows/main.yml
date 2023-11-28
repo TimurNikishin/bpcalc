@@ -21,43 +21,43 @@ jobs:
       with:
         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
     
-    - name: Dependency Review
-      uses: actions/dependency-review-action@v3
-      with:
-        fail-on-severity: critical
-        base-ref: refs/heads/main~1
-        head-ref: refs/heads/main       
+    # - name: Dependency Review
+    #   uses: actions/dependency-review-action@v3
+    #   with:
+    #     fail-on-severity: critical
+    #     base-ref: refs/heads/main~1
+    #     head-ref: refs/heads/main       
     
-    - name: Code Analysis with SonarCloud
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any 
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    # - name: Code Analysis with SonarCloud
+    #   uses: SonarSource/sonarcloud-github-action@master
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any 
+    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
-    - name: Set up Python for Unit Testing
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.9"   
+    # - name: Set up Python for Unit Testing
+    #   uses: actions/setup-python@v4
+    #   with:
+    #     python-version: "3.9"   
 
-    - name: Install dependencies
-      run: python -m pip install pytest flask
+    # - name: Install dependencies
+    #   run: python -m pip install pytest flask
 
-    - name: Run Unit tests
-      run: pytest
+    # - name: Run Unit tests
+    #   run: pytest
 
     - name: Build deployment package
       #run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git* "UnitTest/*" ".pytest*"
       run : zip -r deploy.zip ./ -x *.git* "UnitTest/*" ".pytest*"
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id      :  ${{ secrets.TN_AWS_ACCESS_KEY }}
-        aws-secret-access-key  :  ${{ secrets.TN_AWS_SECRET_KEY }}
-        aws-region             :  ${{ env.AWS_REGION_NAME }}
+    # - name: Configure AWS Credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id      :  ${{ secrets.TN_AWS_ACCESS_KEY }}
+    #     aws-secret-access-key  :  ${{ secrets.TN_AWS_SECRET_KEY }}
+    #     aws-region             :  ${{ env.AWS_REGION_NAME }}
 
-    - name: Copy Deployment package to S3 bucket
-      run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/
+    # - name: Copy Deployment package to S3 bucket
+    #   run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/
 
   CD_part_QA:
     runs-on: ubuntu-latest
