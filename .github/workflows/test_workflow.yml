@@ -20,4 +20,4 @@ jobs:
       run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
 
     - name: Echo current date
-      run: echo $NOW # Gives "2022-12-11T01:42:20"
+      run: echo $NOW + .zip # Gives "2022-12-11T01:42:20"
