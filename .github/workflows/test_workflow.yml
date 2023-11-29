@@ -16,10 +16,12 @@ jobs:
   CI_part:
     runs-on: ubuntu-latest
     steps:
-    - name: Set env variable
-      run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV |
-           echo "DEPLOY_PACKAGE_NAME=bpcalc_app_$NOW.zip" >> $GITHUB_ENV
-
+    - name: Set NOW env variable
+      run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
+          
+    - name: Set PACKAGE env variable
+      run: echo "DEPLOY_PACKAGE_NAME=bpcalc_app_$NOW.zip" >> $GITHUB_ENV
+     
     - name: Echo current date
       run: echo $DEPLOY_PACKAGE_NAME
       #run: echo $NOW + .zip # Gives "2022-12-11T01:42:20"
