@@ -3,8 +3,9 @@ env:
   EB_PACKAGE_S3_BUCKET_NAME  :  "tn-tud-csd-ca1-bpcalc-packages"
   EB_APPLIACTION_NAME_QA     :  "bpcalc-app-qa"
   EB_ENVIRONMENT_NAME_QA     :  "bpcalc-app-qa-env"
-  DEPLOY_PACKAGE_NAME        :  ""
   AWS_REGION_NAME            :  "eu-west-1"
+  DEPLOY_PACKAGE_NAME        :  ""
+  NOW                        :  ""
   
 on:
   workflow_dispatch:
@@ -16,8 +17,10 @@ jobs:
   CI_part:
     runs-on: ubuntu-latest
     steps:
-    - name: Set DEPLOY_PACKAGE_NAME as env variable
-      run: echo "DEPLOY_PACKAGE_NAME=bpcalc_app_$(date +'%Y-%m-%d-%H-%M-%S').zip" >> $GITHUB_ENV
+    - name: Set Timestamp as env variable
+      run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV          
+    - name: Set package name as env variable
+      run: echo "DEPLOY_PACKAGE_NAME=bpcalc_app_$NOW.zip" >> $GITHUB_ENV
 
     - name: Checkout Repository
       uses: actions/checkout@v4
@@ -76,5 +79,5 @@ jobs:
           region:             ${{ env.AWS_REGION_NAME }}
           application_name:   ${{ env.EB_APPLIACTION_NAME_QA }}
           environment_name:   ${{ env.EB_ENVIRONMENT_NAME_QA }}
-          version_label:      "Ver-${{ github.sha }}"
+          version_label:      "Ver-${{ env.NOW }}"
           deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }}  
