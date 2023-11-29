@@ -7,7 +7,7 @@ env:
   EB_ENVIRONMENT_NAME_PROD   :  "bpcalc-app-prod-env"
   AWS_REGION_NAME            :  "eu-west-1"
   DEPLOY_PACKAGE_NAME        :  "deploy.zip"
-  NOW                        :  ""
+  APP_VERSION                :  ""
   
 on:
   workflow_dispatch:
@@ -64,7 +64,7 @@ jobs:
 
     steps:
       - name: Set Timestamp as env variable
-        run: echo "NOW=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV          
+        run: echo "APP_VERSION=Ver-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV          
 
       - name: Download Artifact
         uses: actions/download-artifact@v3
@@ -79,5 +79,5 @@ jobs:
           region:             ${{ env.AWS_REGION_NAME }}
           application_name:   ${{ env.EB_APPLIACTION_NAME }}
           environment_name:   ${{ env.EB_ENVIRONMENT_NAME_QA }}
-          version_label:      "Ver-${{ env.NOW }}"
+          version_label:      ${{ env.APP_VERSION }}
           deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }} 
