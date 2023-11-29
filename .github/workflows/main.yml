@@ -67,7 +67,7 @@ jobs:
 
     steps:
       - name: Set Timestamp as env variable
-        run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV          
+        run: echo "NOW=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV          
 
       - name: Download Artifact
         uses: actions/download-artifact@v3
