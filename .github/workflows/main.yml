@@ -17,11 +17,6 @@ jobs:
   CI_part:
     runs-on: ubuntu-latest
     steps:
-    - name: Set Timestamp as env variable
-      run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV          
-    - name: Set package name as env variable
-      run: echo "DEPLOY_PACKAGE_NAME=bpcalc_app_$NOW.zip" >> $GITHUB_ENV
-
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
