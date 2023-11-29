@@ -3,6 +3,8 @@ env:
   EB_PACKAGE_S3_BUCKET_NAME  :  "tn-tud-csd-ca1-bpcalc-packages"
   EB_APPLIACTION_NAME_QA     :  "bpcalc-app-qa"
   EB_ENVIRONMENT_NAME_QA     :  "bpcalc-app-qa-env"
+  EB_ENVIRONMENT_NAME_STAGE  :  "bpcalc-app-staging-env"
+  EB_ENVIRONMENT_NAME_PROD   :  "bpcalc-app-prod-env"
   AWS_REGION_NAME            :  "eu-west-1"
   DEPLOY_PACKAGE_NAME        :  "deploy.zip"
   NOW                        :  ""
