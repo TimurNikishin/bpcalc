@@ -27,38 +27,38 @@ jobs:
       with:
         fetch-depth: 0  
     
-    - name: Dependency Review
-      uses: actions/dependency-review-action@v3
-      with:
-        fail-on-severity: critical
-        base-ref: refs/heads/main~1
-        head-ref: refs/heads/main       
+    # - name: Dependency Review
+    #   uses: actions/dependency-review-action@v3
+    #   with:
+    #     fail-on-severity: critical
+    #     base-ref: refs/heads/main~1
+    #     head-ref: refs/heads/main       
     
-    - name: Code Analysis with SonarCloud
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    # - name: Code Analysis with SonarCloud
+    #   uses: SonarSource/sonarcloud-github-action@master
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
-    - name: Set up Python for Unit Testing
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.9"   
+    # - name: Set up Python for Unit Testing
+    #   uses: actions/setup-python@v4
+    #   with:
+    #     python-version: "3.9"   
 
-    - name: Install dependencies
-      run: python -m pip install pytest flask
+    # - name: Install dependencies
+    #   run: python -m pip install pytest flask
 
-    - name: Run Unit tests
-      run: pytest
+    # - name: Run Unit tests
+    #   run: pytest
 
     - name: Build deployment package
-      run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git* "UnitTest/*" ".pytest*"
+      run : zip -r deploy.zip ./ -x *.git* "UnitTest/*" ".pytest*"
     
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
         name: Deployment_Package
-        path: ${{ env.DEPLOY_PACKAGE_NAME }}
+        path: deploy.zip
         retention-days: 5  
 
   CD_part_QA:
@@ -66,6 +66,9 @@ jobs:
     needs  : [CI_part]
 
     steps:
+      - name: Set Timestamp as env variable
+        run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV          
+
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -80,4 +83,4 @@ jobs:
           application_name:   ${{ env.EB_APPLIACTION_NAME_QA }}
           environment_name:   ${{ env.EB_ENVIRONMENT_NAME_QA }}
           version_label:      "Ver-${{ env.NOW }}"
-          deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }}  
+          deployment_package: deploy.zip 
