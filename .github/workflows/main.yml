@@ -3,23 +3,21 @@ env:
   EB_PACKAGE_S3_BUCKET_NAME  :  "tn-tud-csd-ca1-bpcalc-packages"
   EB_APPLIACTION_NAME_QA     :  "bpcalc-app-qa"
   EB_ENVIRONMENT_NAME_QA     :  "bpcalc-app-qa-env"
-  DEPLOY_PACKAGE_NAME        :  "bpcalc_app_${{ github.sha }}.zip"
+  #DEPLOY_PACKAGE_NAME        :  "bpcalc_app_${{ github.sha }}.zip"
   AWS_REGION_NAME            :  "eu-west-1"
   
 on:
-  workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  #workflow_dispatch:
+  push:
+    branches:
+      - main
+
 jobs:
   CI_part:
     runs-on: ubuntu-latest
     steps:
-    - name: Set current date as env variable
-      run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-
-    - name: Echo current date
-      run: echo $NOW # Gives "2022-12-11T01:42:20"
+    - name: Set DEPLOY_PACKAGE_NAME as env variable
+      run: echo "DEPLOY_PACKAGE_NAME=bpcalc_app_$(date +'%Y-%m-%d-%H-%M-%S').zip" >> $GITHUB_ENV
 
     - name: Checkout Repository
       uses: actions/checkout@v4
