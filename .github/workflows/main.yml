@@ -7,15 +7,20 @@ env:
   AWS_REGION_NAME            :  "eu-west-1"
   
 on:
-  #workflow_dispatch:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
 jobs:
   CI_part:
     runs-on: ubuntu-latest
-
     steps:
+    - name: Set current date as env variable
+      run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+
+    - name: Echo current date
+      run: echo $NOW # Gives "2022-12-11T01:42:20"
+
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
