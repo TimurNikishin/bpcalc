@@ -7,7 +7,7 @@ env:
   EB_ENVIRONMENT_NAME_GREEN  :  "bpcalc-app-green-env"
   AWS_REGION_NAME            :  "eu-west-1"
   DEPLOY_PACKAGE_NAME        :  "deploy.zip"
-  APP_VERSION                :  ""
+  APP_VERSION                :  "Ver-${{ github.sha }}"
   
 on:
   workflow_dispatch:
@@ -61,10 +61,7 @@ jobs:
   CD_part_QA:
     runs-on: ubuntu-latest
     needs  : [CI_part]
-
     steps:
-      - name: Set Timestamp as env variable
-        run: echo "APP_VERSION=Ver-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV          
 
       - name: Download Artifact
         uses: actions/download-artifact@v3
@@ -80,4 +77,12 @@ jobs:
           application_name:   ${{ env.EB_APPLIACTION_NAME }}
           environment_name:   ${{ env.EB_ENVIRONMENT_NAME_QA }}
           version_label:      ${{ env.APP_VERSION }}
-          deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }} 
+          deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }}
+    
+    # CD_part_QA:
+    #   runs-on: ubuntu-latest
+    #   needs  : [CD_part_QA]
+
+    #   steps:
+    #     - name: 
+  
