@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
 
 jobs:
-  deployment:
+  Prod_Deployment:
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS Credentials
