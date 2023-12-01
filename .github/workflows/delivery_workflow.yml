@@ -26,29 +26,29 @@ jobs:
       with:
         fetch-depth: 0  
     
-    # - name: Dependency Review
-    #   uses: actions/dependency-review-action@v3
-    #   with:
-    #     fail-on-severity: critical
-    #     base-ref: refs/heads/main~1
-    #     head-ref: refs/heads/main       
+    - name: Dependency Review
+      uses: actions/dependency-review-action@v3
+      with:
+        fail-on-severity: critical
+        base-ref: refs/heads/main~1
+        head-ref: refs/heads/main       
     
-    # - name: Code Analysis with SonarCloud
-    #   uses: SonarSource/sonarcloud-github-action@master
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: Code Analysis with SonarCloud
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
-    # - name: Set up Python for Unit Testing
-    #   uses: actions/setup-python@v4
-    #   with:
-    #     python-version: "3.9"   
+    - name: Set up Python for Unit Testing
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"   
 
-    # - name: Install dependencies
-    #   run: python -m pip install pytest flask
+    - name: Install dependencies
+      run: python -m pip install pytest flask
 
-    # - name: Run Unit tests
-    #   run: pytest
+    - name: Run Unit tests
+      run: pytest
 
     - name: Build deployment package
       run : zip -r deploy.zip ./ -x *.git* "UnitTest/*" ".pytest*"
