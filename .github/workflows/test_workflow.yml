@@ -34,9 +34,9 @@ jobs:
       - name: Define Elastic Beanstalk Staging environment
         run: |
              if [ $ENV_DOMAIN == 'bpcalc-app-staging-env.eu-west-1.elasticbeanstalk.com' ]; then
-               echo "EB_STAGING_ENV = \"bpcalc-app-green-env\""
+               echo "EB_STAGING_ENV = \"bpcalc-app-green-env\""  >> $GITHUB_ENV
              else
-               echo "EB_STAGING_ENV = \"bpcalc-app-blue-env\""
+               echo "EB_STAGING_ENV = \"bpcalc-app-blue-env\""  >> $GITHUB_ENV
              fi
       
       - name: print domain name
