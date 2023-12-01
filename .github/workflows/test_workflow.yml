@@ -33,14 +33,14 @@ jobs:
       
       - name: Define Elastic Beanstalk Staging environment
         run: |
-             if [ ${{ env.ENV_DOMAIN }} == 'bpcalc-app-staging-env.eu-west-1.elasticbeanstalk.com' ]; then
+             if [ $ENV_DOMAIN == 'bpcalc-app-staging-env.eu-west-1.elasticbeanstalk.com' ]; then
                echo "EB_STAGING_ENV = ${{ env.EB_ENVIRONMENT_NAME_GREEN }}"
              else
                echo "EB_STAGING_ENV = ${{ env.EB_ENVIRONMENT_NAME_BLUE }}"
              fi
       
       - name: print domain name
-        run: echo ${{ env.EB_STAGING_ENV }}
+        run: echo $EB_STAGING_ENV
 
     # - name: Set Timestamp as env variable
     #   run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
