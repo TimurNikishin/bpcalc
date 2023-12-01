@@ -5,12 +5,13 @@ env:
   EB_ENVIRONMENT_NAME_QA     :  "bpcalc-app-qa-env"
   EB_ENVIRONMENT_NAME_BLUE   :  "bpcalc-app-blue-env"
   EB_ENVIRONMENT_NAME_GREEN  :  "bpcalc-app-green-env"
+  EB_STAGING_DOMAIN          :  "bpcalc-app-staging-env.eu-west-1.elasticbeanstalk.com"
+  EB_STAGING_ENV             :  ""
   AWS_REGION_NAME            :  "eu-west-1"
   DEPLOY_PACKAGE_NAME        :  "deploy.zip"
   APP_VERSION                :  "Ver-${{ github.sha }}"
-  ENV_DOMAIN                 :  ""
-  EB_STAGING_ENV             :  ""
-  
+
+
 on:
   workflow_dispatch:
   # push:
@@ -65,7 +66,7 @@ jobs:
     needs  : [CI_part]
     steps:
 
-      - name: Download Artifact
+      - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
           name: Deployment_Package
@@ -87,22 +88,30 @@ jobs:
 
     steps:
       - name:
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id      :  ${{ secrets.TN_AWS_ACCESS_KEY }}
           aws-secret-access-key  :  ${{ secrets.TN_AWS_SECRET_KEY }}
           aws-region             :  ${{ env.AWS_REGION_NAME }}
-      - name: Get Domain name for Green environment
-        run: echo "ENV_DOMAIN = $(aws elasticbeanstalk describe-environments --environment-names ${{ env.EB_ENVIRONMENT_NAME_GREEN }} --query "Environments[0].CNAME" --output text)" >> $GITHUB_ENV
-      
-      - name: Define Elastic Beanstalk Staging environment
-        run: |
-             if [ ${{ env.ENV_DOMAIN }} == 'bpcalc-app-staging-env.eu-west-1.elasticbeanstalk.com' ]; then
-               echo "EB_STAGING_ENV = ${{ env.EB_ENVIRONMENT_NAME_GREEN }}"
-             else
-               echo "EB_STAGING_ENV = ${{ env.EB_ENVIRONMENT_NAME_BLUE }}"
-             fi
-      
+
+      - name: Detect current staging environment
+        run: echo "EB_STAGING_ENV=$(aws elasticbeanstalk describe-environments --query "Environments[?CNAME=='${{ env.EB_STAGING_DOMAIN }}'].EnvironmentName" --output text)" >> $GITHUB_ENV
+        
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: Deployment_Package
+
+      - name: QA Deployment in AWS
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key:     ${{ secrets.TN_AWS_ACCESS_KEY }}
+          aws_secret_key:     ${{ secrets.TN_AWS_SECRET_KEY }}
+          region:             ${{ env.AWS_REGION_NAME }}
+          application_name:   ${{ env.EB_APPLIACTION_NAME }}
+          environment_name:   ${{ env.EB_STAGING_ENV }}
+          version_label:      ${{ env.APP_VERSION }}
+          deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }}
 
          
          
