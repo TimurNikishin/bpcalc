@@ -44,6 +44,7 @@ jobs:
       - name: print Staging Environment
         run: echo $EB_STAGING_ENV
 
+        
     # - name: Set Timestamp as env variable
     #   run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
           
