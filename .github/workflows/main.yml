@@ -102,16 +102,19 @@ jobs:
         with:
           name: Deployment_Package
 
-      - name: QA Deployment in AWS
-        uses: einaregilsson/beanstalk-deploy@v20
-        with:
-          aws_access_key:     ${{ secrets.TN_AWS_ACCESS_KEY }}
-          aws_secret_key:     ${{ secrets.TN_AWS_SECRET_KEY }}
-          region:             ${{ env.AWS_REGION_NAME }}
-          application_name:   ${{ env.EB_APPLIACTION_NAME }}
-          environment_name:   ${{ env.EB_STAGING_ENV }}
-          version_label:      ${{ env.APP_VERSION }}
-          deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }}
+      - name: Staging Deployment in AWS
+        run: aws elasticbeanstalk update-environment --environment-name ${{ env.EB_STAGING_ENV }} --version-label ${{ env.APP_VERSION }}
+
+      # - name: Staging Deployment in AWS
+      #   uses: einaregilsson/beanstalk-deploy@v20
+      #   with:
+      #     aws_access_key:     ${{ secrets.TN_AWS_ACCESS_KEY }}
+      #     aws_secret_key:     ${{ secrets.TN_AWS_SECRET_KEY }}
+      #     region:             ${{ env.AWS_REGION_NAME }}
+      #     application_name:   ${{ env.EB_APPLIACTION_NAME }}
+      #     environment_name:   ${{ env.EB_STAGING_ENV }}
+      #     version_label:      ${{ env.APP_VERSION }}
+      #     deployment_package: ${{ env.DEPLOY_PACKAGE_NAME }}
 
          
          
