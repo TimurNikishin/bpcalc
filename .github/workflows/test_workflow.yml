@@ -5,6 +5,7 @@ env:
   EB_ENVIRONMENT_NAME_QA     :  "bpcalc-app-qa-env"
   EB_ENVIRONMENT_NAME_BLUE   :  "bpcalc-app-blue-env"
   EB_ENVIRONMENT_NAME_GREEN  :  "bpcalc-app-green-env"
+  EB_STAGING_DOMAIN          :  "bpcalc-app-staging-env.eu-west-1.elasticbeanstalk.com"
   AWS_REGION_NAME            :  "eu-west-1"
   DEPLOY_PACKAGE_NAME        :  "deploy.zip"
   APP_VERSION                :  "Ver-${{ github.sha }}"
@@ -40,7 +41,7 @@ jobs:
 
       - name: Define Elastic Beanstalk Staging environment
         run: |
-             if [ $ENV_DOMAIN == 'bpcalc-app-staging-env.eu-west-1.elasticbeanstalk.com' ]; then
+             if [ $ENV_DOMAIN == ${{ env.EB_STAGING_DOMAIN }} ]; then
                echo "EB_STAGING_ENV=${{ env.EB_ENVIRONMENT_NAME_GREEN }}"  >> $GITHUB_ENV
              else
                echo "EB_STAGING_ENV=${{ env.EB_ENVIRONMENT_NAME_BLUE }}"  >> $GITHUB_ENV
