@@ -1,6 +1,5 @@
 name: CI/CD-Delivery
 env:
-  EB_PACKAGE_S3_BUCKET_NAME  :  "tn-tud-csd-ca1-bpcalc-packages"
   EB_APPLIACTION_NAME        :  "bpcalc-app"
   EB_ENVIRONMENT_NAME_QA     :  "bpcalc-app-qa-env"
   EB_ENVIRONMENT_NAME_BLUE   :  "bpcalc-app-blue-env"
