@@ -36,7 +36,7 @@ jobs:
       
       - name: Define Elastic Beanstalk Staging environment
         if: $ENV_DOMAIN = ${{ env.EB_ENVIRONMENT_NAME_GREEN }}
-        run: echo "EB_STAGING_ENV = ${{ env.EB_ENVIRONMENT_NAME_GREEN }}"  >> $GITHUB_ENV
+        run: echo "EB_STAGING_ENV=${{ env.EB_ENVIRONMENT_NAME_GREEN }}"  >> $GITHUB_ENV
 
       # - name: Define Elastic Beanstalk Staging environment
       #   run: |
