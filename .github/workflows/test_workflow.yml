@@ -26,9 +26,9 @@ jobs:
         with:
           aws-access-key-id      :  ${{ secrets.TN_AWS_ACCESS_KEY }}
           aws-secret-access-key  :  ${{ secrets.TN_AWS_SECRET_KEY }}
-          aws-region             :  ${{ var.AWS_REGION_NAME }}
+          aws-region             :  ${{ vars.AWS_REGION_NAME }}
       - name: Detect current staging environment
-        run: echo "EB_STAGING_ENV=$(aws elasticbeanstalk describe-environments --query "Environments[?CNAME=='${{ var.EB_STAGING_DOMAIN }}'].EnvironmentName" --output text)" >> $GITHUB_ENV
+        run: echo "EB_STAGING_ENV=$(aws elasticbeanstalk describe-environments --query "Environments[?CNAME=='${{ vars.EB_STAGING_DOMAIN }}'].EnvironmentName" --output text)" >> $GITHUB_ENV
 
       # - name: Get environment domain name
       #   run: echo "ENV_DOMAIN=$(aws elasticbeanstalk describe-environments --environment-names ${{ var.EB_ENVIRONMENT_NAME_GREEN }} --query "Environments[0].CNAME" --output text)" >> $GITHUB_ENV
