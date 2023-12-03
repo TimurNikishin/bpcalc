@@ -20,7 +20,7 @@ diastolic.send_keys("60")
 diastolic.send_keys(Keys.RETURN)
 
 result = driver.find_element(By.CLASS_NAME, "alert").get_attribute('innerHTML')
-assert 'Ideal bloood pressure' in result
+assert 'Ideal blood pressure' in result
 
 
 # try:
