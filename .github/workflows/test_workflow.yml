@@ -27,6 +27,9 @@ jobs:
 
       - name: Install Chrome browser
         uses: browser-actions/setup-chrome@latest
+      
+      - name: Run Chrome browser
+        uses: chrome
 
       - name: Run Selenium End to End test
         run : python ./Tests/selenium-test.py
