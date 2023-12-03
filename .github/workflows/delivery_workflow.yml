@@ -116,7 +116,7 @@ jobs:
         run: python -m pip install selenium
 
       - name: Run Selenium End to End test
-        run: python ./tests/selenium.py
+        run: python ./tests/seleniumtest.py
 
 
 
