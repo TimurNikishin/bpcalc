@@ -1,9 +1,11 @@
+import sys
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService 
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
 
 TEST_URL = "http://bpcalcqa.ntcyber.net"
 
@@ -27,10 +29,10 @@ try:
     driver.quit
 except AssertionError:
     print('E2E test failed')
-    exit_program()
+    sys.exit()
 except Exception as e:
     print(f"An error occurred: {e}")
-    exit_program()
+    sys.exit()
 
 
 
