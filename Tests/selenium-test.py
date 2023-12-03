@@ -21,7 +21,7 @@ diastolic.send_keys(Keys.RETURN)
 
 result = driver.find_element(By.CLASS_NAME, "alert").get_attribute('innerHTML')
 try:
-    assert 'Ideal blood pressure' in result
+    assert 'Ideal bloood pressure' in result
     print('E2E test passed')
     driver.quit
 except AssertionError:
