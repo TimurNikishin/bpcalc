@@ -13,6 +13,8 @@ jobs:
   CD_part_Testing:
     runs-on: ubuntu-latest
     steps:
+      - uses: browser-actions/setup-chrome@latest
+      - run: chrome
 
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -24,12 +26,6 @@ jobs:
 
       - name: Install dependencies
         run : python -m pip install selenium webdriver-manager
-
-      - name: Install Chrome browser
-        uses: browser-actions/setup-chrome@latest
-      
-      - name: Run Chrome browser
-        uses: chrome
 
       - name: Run Selenium End to End test
         run : python ./Tests/selenium-test.py
