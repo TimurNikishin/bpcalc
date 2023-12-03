@@ -29,10 +29,10 @@ try:
     driver.quit
 except AssertionError:
     print('E2E test failed')
-    sys.exit()
+    sys.exit(1)
 except Exception as e:
     print(f"An error occurred: {e}")
-    sys.exit()
+    sys.exit(1)
 
 
 
