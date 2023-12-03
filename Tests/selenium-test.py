@@ -12,7 +12,7 @@ options.headless = True
 
 # options.add_experimental_option("detach", True)
 
-with webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options) as driver:
+with webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(), options=options) as driver:
     driver.get(TEST_URL)
     systolic = driver.find_element(By.ID, "systolic")
     systolic.send_keys("110")
