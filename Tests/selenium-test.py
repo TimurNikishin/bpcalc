@@ -20,16 +20,18 @@ diastolic.send_keys("60")
 diastolic.send_keys(Keys.RETURN)
 
 result = driver.find_element(By.CLASS_NAME, "alert").get_attribute('innerHTML')
-assert 'Ideal blood pressure' in result
 
+try:
+    assert 'Ideal bloood pressure' in result
+    print('E2E test passed')
+    driver.quit
+except AssertionError:
+    print('E2E test failed')
+    exit_program()
+except Exception as e:
+    print(f"An error occurred: {e}")
+    exit_program()
 
-# try:
-#     assert 'Ideal bloood pressure' in result
-#     print('E2E test passed')
-#     driver.quit
-# except AssertionError:
-#     print('E2E test failed')
-#     driver.quit
 
 
 # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
