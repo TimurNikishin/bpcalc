@@ -23,7 +23,7 @@ jobs:
           python-version: "3.9"
 
       - name: Install dependencies
-        run: python -m pip install selenium
+        run: python -m pip install selenium webdriver-manager
 
       - name: Run Selenium End to End test
         run: python ./Tests/selenium-test.py
