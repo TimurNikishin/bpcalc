@@ -1,18 +1,21 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService 
-#from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 TEST_URL = "http://bpcalcqa.ntcyber.net"
 
-options = webdriver.ChromeOptions()
-options.headless = True
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+
+#options = webdriver.ChromeOptions()
+#options.headless = True
 
 # options.add_experimental_option("detach", True)
 
-with webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(), options=options) as driver:
+with webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options) as driver:
     driver.get(TEST_URL)
     systolic = driver.find_element(By.ID, "systolic")
     systolic.send_keys("110")
@@ -25,8 +28,10 @@ with webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).insta
     try:
         assert 'Ideal blood pressure' in result
         print('E2E test passed')
+        driver.quit
     except AssertionError:
         print('E2E test failed')
+        driver.quit
 
 
 # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
