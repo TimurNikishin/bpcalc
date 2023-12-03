@@ -10,28 +10,23 @@ TEST_URL = "http://bpcalcqa.ntcyber.net"
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 
-#options = webdriver.ChromeOptions()
-#options.headless = True
+driver = webdriver.Chrome(options=chrome_options)
+driver.get(TEST_URL)
+systolic = driver.find_element(By.ID, "systolic")
+systolic.send_keys("110")
 
-# options.add_experimental_option("detach", True)
+diastolic = driver.find_element(By.ID, "diastolic")
+diastolic.send_keys("60")
+diastolic.send_keys(Keys.RETURN)
 
-with webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options) as driver:
-    driver.get(TEST_URL)
-    systolic = driver.find_element(By.ID, "systolic")
-    systolic.send_keys("110")
-
-    diastolic = driver.find_element(By.ID, "diastolic")
-    diastolic.send_keys("60")
-    diastolic.send_keys(Keys.RETURN)
-
-    result = driver.find_element(By.CLASS_NAME, "alert").get_attribute('innerHTML')
-    try:
-        assert 'Ideal blood pressure' in result
-        print('E2E test passed')
-        driver.quit
-    except AssertionError:
-        print('E2E test failed')
-        driver.quit
+result = driver.find_element(By.CLASS_NAME, "alert").get_attribute('innerHTML')
+try:
+    assert 'Ideal blood pressure' in result
+    print('E2E test passed')
+    driver.quit
+except AssertionError:
+    print('E2E test failed')
+    driver.quit
 
 
 # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
