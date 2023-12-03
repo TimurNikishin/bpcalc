@@ -31,20 +31,3 @@ except AssertionError:
 except Exception as e:
     print(f"An error occurred: {e}")
     sys.exit(1)
-
-
-
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
-#driver = webdriver.Chrome()
-
-#driver.get(TEST_URL)
-
-
-
-# if 'Ideal blood pressurre' in result:
-#     print("OK")
-
-# links = driver.find_element(By.ID, 'systolic')
-# for link in links:
-#      print(link.get_attribute('min'))
-    
