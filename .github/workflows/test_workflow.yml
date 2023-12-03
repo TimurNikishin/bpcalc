@@ -28,7 +28,7 @@ jobs:
         run : python -m pip install selenium webdriver-manager
 
       - name: Run Selenium End to End test
-        run : python ./Tests/selenium-test.py
+        run : sudo python ./Tests/selenium-test.py
 
   # CI_part:
     # runs-on: ubuntu-latest
