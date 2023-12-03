@@ -1,3 +1,5 @@
+import sys
+
 response_title = b"<title>Blood Pressure Category Calculator</title>"
 response_low = b"Low blood pressure"
 response_ideal = b"Ideal blood pressure"
@@ -7,8 +9,13 @@ response_invalid = b"Submitted invalid values"
 
 
 def test_page_title(client):
-    response = client.get("/")
-    assert response_title in response.data
+    try:
+        response = client.get("/")
+        assert response_title in response.data
+        print('page_title test Passed')
+    except AssertionError:
+        print('page_title test Failed')
+        sys.exit(1)
     
 def test_submission(client):
     response = client.post("/", data={"systolic": "110", "diastolic": "70"})
