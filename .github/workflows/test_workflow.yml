@@ -13,8 +13,8 @@ jobs:
   CD_part_Testing:
     runs-on: ubuntu-latest
     steps:
-      - uses: browser-actions/setup-chrome@latest
-      - run: chrome --version
+      # - uses: browser-actions/setup-chrome@latest
+      # - run: chrome --version
 
       - name: Checkout Repository
         uses: actions/checkout@v4
