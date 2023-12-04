@@ -3,8 +3,8 @@ name: CI/CD-Delivery
 
 env:
   EB_STAGING_ENV             :  ""
+  QA_URL                     :  ""
   APP_VERSION                :  "Ver-${{ github.sha }}"
-
 
 on:
   workflow_dispatch:
@@ -122,7 +122,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.10.0
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: "http://bpcalcqa.ntcyber.net"
+          target: ${{ vars.QA_URL }}
 
       
       
