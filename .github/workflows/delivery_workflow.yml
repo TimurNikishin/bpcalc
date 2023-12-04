@@ -117,6 +117,15 @@ jobs:
 
       - name: Run Selenium End to End test
         run: python ./tests/seleniumtest.py
+      
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.10.0
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: "http://bpcalcqa.ntcyber.net"
+
+      
+      
 
 
 
