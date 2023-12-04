@@ -13,56 +13,12 @@ jobs:
   CD_part_Testing:
     runs-on: ubuntu-latest
     steps:
-      # - uses: browser-actions/setup-chrome@latest
-      # - run: chrome --version
 
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Python for testing
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"
-
-      - name: Install dependencies
-        run : python -m pip install selenium
-
-      - name: Run Selenium End to End test
-        run : python ./Tests/selenium-test.py
-
-  # CI_part:
-    # runs-on: ubuntu-latest
-    # steps:
-    #   - name: Configure AWS Credentials
-    #     uses: aws-actions/configure-aws-credentials@v4
-    #     with:
-    #       aws-access-key-id      :  ${{ secrets.TN_AWS_ACCESS_KEY }}
-    #       aws-secret-access-key  :  ${{ secrets.TN_AWS_SECRET_KEY }}
-    #       aws-region             :  ${{ vars.AWS_REGION_NAME }}
-    #   - name: Detect current staging environment
-    #     run: echo "EB_STAGING_ENV=$(aws elasticbeanstalk describe-environments --query "Environments[?CNAME=='${{ vars.EB_STAGING_DOMAIN }}'].EnvironmentName" --output text)" >> $GITHUB_ENV
-
-      # - name: Get environment domain name
-      #   run: echo "ENV_DOMAIN=$(aws elasticbeanstalk describe-environments --environment-names ${{ var.EB_ENVIRONMENT_NAME_GREEN }} --query "Environments[0].CNAME" --output text)" >> $GITHUB_ENV
-
-      # - name: Define Elastic Beanstalk Staging environment
-      #   run: |
-      #        if [ ${{ env.ENV_DOMAIN }} == ${{ env.EB_STAGING_DOMAIN }} ]; then
-      #          echo "EB_STAGING_ENV=${{ env.EB_ENVIRONMENT_NAME_GREEN }}"  >> $GITHUB_ENV
-      #        else
-      #          echo "EB_STAGING_ENV=${{ env.EB_ENVIRONMENT_NAME_BLUE }}"  >> $GITHUB_ENV
-      #        fi
-      
-      # - name: print Staging Environment
-      #   run: echo $EB_STAGING_ENV
-
-
-    # - name: Set Timestamp as env variable
-    #   run: echo "NOW=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.10.0
+        with: 
+          target: "http://bpcalcqa.ntcyber.net"
           
-    # - name: Set package name as env variable
-    #   run: echo "DEPLOY_PACKAGE_NAME=bpcalc_app_$NOW.zip" >> $GITHUB_ENV
-     
-    # - name: Echo current date
-    #   run: echo $DEPLOY_PACKAGE_NAME
-      #run: echo $NOW + .zip # Gives "2022-12-11T01:42:20"
