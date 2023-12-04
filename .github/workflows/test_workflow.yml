@@ -1,6 +1,7 @@
 name: Test_Pipeline
 env:
   APP_VERSION                :  "Ver-${{ github.sha }}"
+  QA_URL                     :  ""
   EB_STAGING_ENV             :  ""
   
 on:
@@ -24,4 +25,4 @@ jobs:
 
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: "http://bpcalcqa.ntcyber.net"
+          target: ${{ vars.QA_URL }}
