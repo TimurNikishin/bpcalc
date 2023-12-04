@@ -126,12 +126,17 @@ jobs:
           target: ${{ vars.QA_URL }}
 
       - name: Run JMeter performance test
-        uses: rbhadti94/apache-jmeter-action@v0.5.0
+        uses: rbhadti94/apache-jmeter-action@v0.7.0
         with:
           testFilePath: tests/bpcalcqa-jmeter.jmx
           outputReportsFolder: reports/
           args: "--loglevel INFO"
-
+        
+      - uses: actions/upload-artifact@v3
+        with:
+          name: jmeter-test-results
+          path: reports/
+  
 
 
 
