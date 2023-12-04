@@ -12,8 +12,8 @@ on:
 jobs:
   CD_part_Testing:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
+    # permissions:
+    #   id-token: write
     steps:
 
       - name: Checkout Repository
@@ -23,4 +23,5 @@ jobs:
         uses: zaproxy/action-baseline@v0.10.0
 
         with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
           target: "http://bpcalcqa.ntcyber.net"
