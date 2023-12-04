@@ -11,8 +11,9 @@ on:
   
 jobs:
   CD_part_Testing:
-    permissions: write-all
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
 
       - name: Checkout Repository
