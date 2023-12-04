@@ -98,7 +98,6 @@ jobs:
 
       - name: Staging Deployment in AWS
         run: aws elasticbeanstalk update-environment --environment-name ${{ env.EB_STAGING_ENV }} --version-label ${{ env.APP_VERSION }}
-        #run: aws elasticbeanstalk update-environment --environment-name bpcalc-app-green-env --version-label ${{ env.APP_VERSION }}
   
   CD_part_Testing:
     runs-on: ubuntu-latest
