@@ -119,11 +119,20 @@ jobs:
       - name: Run Selenium End to End test
         run: python ./tests/seleniumtest.py
       
-      - name: OWASP ZAP Baseline Scan
+      - name: Run OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.10.0
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
           target: ${{ vars.QA_URL }}
+
+      - name: Run JMeter performance test
+        uses: rbhadti94/apache-jmeter-action@v0.5.0
+        with:
+          testFilePath: tests/bpcalcqa-jmeter.jmx
+          outputReportsFolder: tests/reports/
+          args: "--loglevel INFO"
+
+
 
 
       
