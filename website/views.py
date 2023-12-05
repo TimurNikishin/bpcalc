@@ -13,8 +13,9 @@ def home():
         except ValueError:
             flash('Values must be numbers', category='error')
         
-        from .modules import bpcalc
+        from .modules import bpcalc, log_inputs
         pressure = bpcalc(systolic, diastolic)
+        log_inputs(pressure, systolic, diastolic)
         
         if pressure == 'low':
             flash('Low blood pressure', category='low')
@@ -29,3 +30,8 @@ def home():
             
     return render_template("home.html")
 
+@views.route('/logs')
+def logs():
+    from .modules import read_data_from_file
+    log_data = read_data_from_file()
+    return render_template("logs.html", log_data=log_data)

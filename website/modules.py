@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def bpcalc(systolic, diastolic):
     if 70 <= systolic < 90 and 40 <= diastolic < 60:
         return 'low'
@@ -21,3 +23,22 @@ def bpcalc(systolic, diastolic):
         return 'high'
     else:
         return 'invalid'
+
+def log_inputs(*inputs, file_path='log.txt'):
+    # Get the current date and time
+    current_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    # Format and log all inputs on a single line
+    log_entry = f'{current_datetime}: {" ".join(map(str, inputs))}\n'
+
+    # Write the log entry to the file
+    with open(file_path, 'a') as file:
+        file.write(log_entry)
+        
+def read_data_from_file(file_path='log.txt'):
+    try:
+        with open(file_path, 'r') as file:
+            data = file.read()
+        return data
+    except FileNotFoundError:
+        return "No logs found."
